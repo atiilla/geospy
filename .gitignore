@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+*.pyo
+*.so
+*.egg-info
+*.egg-info/*
+build
+build/*
+dist
+geospy.egg-info
+venv
