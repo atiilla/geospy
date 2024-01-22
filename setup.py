@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 
 setup(
     name='geospyer',
-    version='0.1.0',
+    version='0.1.1',
     packages=find_packages(),
     install_requires=[
         'requests',
     ],
     entry_points={
     'console_scripts': [
-        'geospy=cli:main',  # Replace 'cli' with the actual name of your script
+        'geospyer=cli:main',  # Replace 'cli' with the actual name of your script
     ],
 },
     author='Atiilla',

@@ -44,5 +44,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- [Graylark](https://graylark.io/) for the API and for the OpenStreetMap data.
-  Thanks to Graylark for providing the AI-powered geolocation service.
+- [Thanks to Graylark](https://graylark.io/) for providing the AI-powered geolocation service.
