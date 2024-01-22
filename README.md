@@ -5,7 +5,7 @@
 
 AI-powered geo-location tool to uncover the location where photos were taken.
 
-![screenshot](https://raw.githubusercontent.com/atiilla/geospy/main/screenshot.PNG)
+![screenshot](screenshot.png)
 
 ## Installation
 
