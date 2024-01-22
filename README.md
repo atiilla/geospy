@@ -5,7 +5,7 @@
 
 AI-powered geo-location tool to uncover the location where photos were taken.
 
-![screenshot](screenshot.png)
+![screenshot](screenshot.PNG)
 
 ## Installation
 
