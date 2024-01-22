@@ -10,23 +10,28 @@ AI-powered geo-location tool to uncover the location where photos were taken.
 ## Installation
 
 ```bash
-pip install geospy
+pip install geospyer
 ```
 
 ## Usage
+
 ```bash
-geospy --image path/to/your/image.jpg
+geospyer --image path/to/your/image.jpg
 ```
+
 Replace path/to/your/image.jpg with the actual path to the image you want to analyze.
 
 ## Features
+
 - AI-powered geo-location using Graylark's API.
 - Generate Google Maps links based on image coordinates.
 
 ## Disclaimer
+
 This application uses Graylark's AI-powered geolocation. It is not affiliated with Graylark, and the author is not responsible for the consequences of using this application.
 
 ## Contributing
+
 1. Fork the repository
 2. Create a new branch (git checkout -b feature/new-feature).
 3. Commit your changes (git commit -am 'Add new feature').
@@ -34,8 +39,10 @@ This application uses Graylark's AI-powered geolocation. It is not affiliated wi
 5. Create a pull request.
 
 ## License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
+
 - [Graylark](https://graylark.io/) for the API and for the OpenStreetMap data.
-Thanks to Graylark for providing the AI-powered geolocation service.
+  Thanks to Graylark for providing the AI-powered geolocation service.

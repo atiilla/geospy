@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='geospy',
+    name='geospyer',
     version='0.1.0',
     packages=find_packages(),
     install_requires=[
@@ -12,10 +12,9 @@ setup(
         'geospy=cli:main',  # Replace 'cli' with the actual name of your script
     ],
 },
-    author='Your Name',
-    author_email='your.email@example.com',
+    author='Atiilla',
     description='AI powered geo-location to uncover the location of photos.',
-    url='https://github.com/yourusername/geospy',
+    url='https://github.com/atiilla/geospy',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
