@@ -3,7 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/atiilla/geospy)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/atiilla/geospy)
 
-AI-powered geo-location tool to uncover the location where photos were taken.
+Python tool using Graylark's AI-powered geo-location service to uncover the location where photos were taken.
 
 ![screenshot](screenshot.PNG)
 
@@ -23,7 +23,6 @@ Replace path/to/your/image.jpg with the actual path to the image you want to ana
 
 ## Features
 
-- AI-powered geo-location using Graylark's API.
 - Generate Google Maps links based on image coordinates.
 
 ## Disclaimer
