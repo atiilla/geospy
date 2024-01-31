@@ -8,26 +8,33 @@ import json
 def display_map(cordinates):
     # Extract latitude and longitude from the coordinates
     latitude, longitude = cordinates
-    # Extract numerical values and direction
-    latitude_value, latitude_direction = map(str.strip, latitude.split("°"))
-    longitude_value, longitude_direction = map(str.strip, longitude.split("°"))
+    google_maps_link = ""
 
-    # Determine the sign for latitude and longitude
-    latitude_sign = 1 if latitude_direction.upper() == "N" else -1
-    longitude_sign = 1 if longitude_direction.upper() == "E" else -1
+    # if latitude or longitude contains '°' or 'N' or 'S' or 'E' or 'W'
+    if "°" in latitude or "°" in longitude:
+        # Extract numerical values and direction
+        latitude_value, latitude_direction = map(str.strip, latitude.split("°"))
+        longitude_value, longitude_direction = map(str.strip, longitude.split("°"))
 
-    # Convert string values to float
-    latitude_float = float(latitude_value) * latitude_sign
-    longitude_float = float(longitude_value) * longitude_sign
+        # Determine the sign for latitude and longitude
+        latitude_sign = 1 if latitude_direction.upper() == "N" else -1
+        longitude_sign = 1 if longitude_direction.upper() == "E" else -1
 
-    # Generate Google Maps link
-    google_maps_link = (
-        f"https://www.google.com/maps?q={latitude_float},{longitude_float}"
-    )
+        # Convert string values to float
+        latitude_float = float(latitude_value) * latitude_sign
+        longitude_float = float(longitude_value) * longitude_sign
+
+        # Generate Google Maps link
+        google_maps_link = (
+            f"https://www.google.com/maps?q={latitude_float},{longitude_float}"
+        )
+
+    else:
+        # Extract numerical values and direction
+        google_maps_link = f"https://www.google.com/maps?q={latitude},{longitude}"
 
     # Display the Google Maps link
     return f"Google Maps Link: {google_maps_link}"
-
 
 def send_image_to_server(image_path):
     # Open the image file
@@ -115,5 +122,5 @@ def main():
     if args.image:
         send_image_to_server(args.image)
 
-if __name__ == "__main__":
-    main()
+    else:
+        print("Please provide an image path using the --image argument.")
