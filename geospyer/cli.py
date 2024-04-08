@@ -6,7 +6,7 @@ import json
 
 
 def display_map(cordinates):
-    # Extract latitude and longitude from the coordinates
+    # Extract latitude and longitude from the coordinates..
     latitude, longitude = cordinates
     google_maps_link = ""
 
