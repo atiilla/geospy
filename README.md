@@ -19,6 +19,19 @@ pip install geospyer
 geospyer --image path/to/your/image.jpg
 ```
 
+```python
+from geospy import GeoSpy
+
+geospy = GeoSpy()
+country = geospy.country("image.png")
+city = geospy.city("image.png")
+explanation = geospy.explanation("image.png")
+coordinates = geospy.coordinates("image.png")
+maps_link = geospy.maps("image.png")
+location_data = geospy.locate("image.png")
+print(str(location_data))
+```
+
 Replace path/to/your/image.jpg with the actual path to the image you want to analyze.
 
 ## Features
@@ -44,3 +57,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - [Thanks to Graylark](https://graylark.io/) for providing the AI-powered geolocation service.
+- [Thanks to @metaltiger775] for transforming the project into a versatile library that can be seamlessly integrated into other codebases!
