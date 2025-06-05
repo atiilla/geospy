@@ -3,9 +3,9 @@
 ![GitHub](https://img.shields.io/github/license/atiilla/geospy)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/atiilla/geospy)
 
-Python tool using Graylark's AI-powered geo-location service to uncover the location where photos were taken.
+Python tool using Google's Gemini API to uncover the location where photos were taken through AI-powered geo-location analysis.
 
-![screenshot](screenshot.PNG)
+[![asciicast](https://asciinema.org/a/722241.svg)](https://asciinema.org/a/722241)
 
 ## Installation
 
@@ -15,32 +15,109 @@ pip install geospyer
 
 ## Usage
 
+### Command Line Interface
+
 ```bash
 geospyer --image path/to/your/image.jpg
 ```
 
-```python
-from geospy import GeoSpy
+#### Available Arguments
 
-geospy = GeoSpy()
-country = geospy.country("image.png")
-city = geospy.city("image.png")
-explanation = geospy.explanation("image.png")
-coordinates = geospy.coordinates("image.png")
-maps_link = geospy.maps("image.png")
-location_data = geospy.locate("image.png")
-print(str(location_data))
+| Argument | Description |
+|----------|-------------|
+| `--image` | **Required.** Path to the image file or URL to analyze |
+| `--context` | Additional context information about the image |
+| `--guess` | Your guess of where the image might have been taken |
+| `--output` | Output file path to save the results (JSON format) |
+| `--api-key` | Custom Gemini API key |
+
+#### Examples
+
+Basic usage:
+```bash
+geospyer --image vacation_photo.jpg
 ```
 
-Replace path/to/your/image.jpg with the actual path to the image you want to analyze.
+With additional context:
+```bash
+geospyer --image vacation_photo.jpg --context "Taken during summer vacation in 2023"
+```
+
+With location guess:
+```bash
+geospyer --image vacation_photo.jpg --guess "Mediterranean coast"
+```
+
+Saving results to a file:
+```bash
+geospyer --image vacation_photo.jpg --output results.json
+```
+
+Using a custom API key:
+```bash
+geospyer --image vacation_photo.jpg --api-key "your-api-key-here"
+```
+
+### API Key Setup
+
+GeoSpy uses Google's Gemini API. You can:
+1. Set the API key as an environment variable: `GEMINI_API_KEY=your_key_here`
+2. Pass the API key directly when initializing: `GeoSpy(api_key="your_key_here")`
+3. Use the `--api-key` parameter in the command line
+
+Get your Gemini API key from [Google AI Studio](https://ai.google.dev/).
+
+### Python Library
+
+```python
+from geospyer import GeoSpy
+
+# Initialize GeoSpy
+geospy = GeoSpy()
+
+# Analyze an image and get JSON result
+result = geospy.locate(image_path="image.jpg")
+
+# Work with the JSON data
+if "error" in result:
+    print(f"Error: {result['error']}")
+else:
+    # Access the first location
+    if "locations" in result and result["locations"]:
+        location = result["locations"][0]
+        print(f"Location: {location['city']}, {location['country']}")
+        
+        # Get Google Maps URL
+        if "coordinates" in location:
+            lat = location["coordinates"]["latitude"]
+            lng = location["coordinates"]["longitude"]
+            maps_url = f"https://www.google.com/maps?q={lat},{lng}"
+```
+
+See the [examples directory](./examples) for more detailed usage examples.
 
 ## Features
 
-- Generate Google Maps links based on image coordinates.
+- AI-powered geolocation of images using Google's Gemini API
+- Generate Google Maps links based on image coordinates
+- Provide confidence levels for location predictions
+- Support for additional context and location guesses
+- Export results to JSON
+- Handles both local image files and image URLs
+
+## Response Format
+
+The API returns a structured JSON response with:
+- `interpretation`: Comprehensive analysis of the image
+- `locations`: Array of possible locations with:
+  - Country, state, and city information
+  - Confidence level (High/Medium/Low)
+  - Coordinates (latitude/longitude)
+  - Detailed explanation of the reasoning
 
 ## Disclaimer
 
-This application uses Graylark's AI-powered geolocation. It is not affiliated with Graylark, and the author is not responsible for the consequences of using this application.
+This tool is for experimental use only. The author is not responsible for the consequences of using this application.
 
 ## Contributing
 
@@ -55,6 +132,3 @@ This application uses Graylark's AI-powered geolocation. It is not affiliated wi
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-
-- [Thanks to Graylark](https://graylark.io/) for providing the AI-powered geolocation service.
-- [Thanks to @metaltiger775] for transforming the project into a versatile library that can be seamlessly integrated into other codebases!
