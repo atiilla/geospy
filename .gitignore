@@ -9,3 +9,4 @@ build/*
 dist
 geospy.egg-info
 venv
+geospy.gif

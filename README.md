@@ -115,9 +115,13 @@ The API returns a structured JSON response with:
   - Coordinates (latitude/longitude)
   - Detailed explanation of the reasoning
 
-## Disclaimer
+## Disclaimer:
+GeoSpy is intended for educational and research purposes only. While it uses AI models to estimate the location of where an image was taken, its predictions are not guaranteed to be accurate. Do not use this tool for surveillance, stalking, law enforcement, or any activity that may infringe on personal privacy, violate laws, or cause harm.
 
-This tool is for experimental use only. The author is not responsible for the consequences of using this application.
+The author(s) and contributors are not responsible for any damages, legal issues, or consequences resulting from the use or misuse of this software. Use at your own risk and discretion.
+
+Always comply with local, national, and international laws and regulations when using AI-based tools.
+
 
 ## Contributing
 
