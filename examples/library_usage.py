@@ -7,13 +7,34 @@ from geospyer import GeoSpy
 import os 
 import pathlib
 import json
+import sys
 
-# Initialize GeoSpy
-geospy = GeoSpy(api_key="your_api_key_here")
+# Initialize GeoSpy with environment variable
+try:
+    geospy = GeoSpy()  # Uses GEMINI_API_KEY from environment
+except Exception as e:
+    print(f"Error initializing GeoSpy: {e}")
+    print("Please ensure GEMINI_API_KEY environment variable is set")
+    sys.exit(1)
 
-# Analyze a local image
+# Analyze a local image with path validation
 image_path = os.path.join(pathlib.Path(__file__).parent.parent, "kule.jpg")
-result = geospy.locate(image_path=image_path)
+
+# Validate image path
+image_path = os.path.abspath(image_path)
+if not os.path.exists(image_path):
+    print(f"Error: Image file not found: {image_path}")
+    sys.exit(1)
+    
+if not image_path.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')):
+    print(f"Error: Unsupported image format: {image_path}")
+    sys.exit(1)
+
+try:
+    result = geospy.locate(image_path=image_path)
+except Exception as e:
+    print(f"Error analyzing image: {e}")
+    sys.exit(1)
 
 # For this example, let's show how to access the data
 if "error" in result:
@@ -21,8 +42,12 @@ if "error" in result:
     exit(1)
 
 # Example 1: Save the raw JSON to a file
-with open("geospy_result.json", "w") as f:
-    json.dump(result, f, indent=2)
+try:
+    with open("geospy_result.json", "w") as f:
+        json.dump(result, f, indent=2)
+except (IOError, PermissionError) as e:
+    print(f"Error saving result file: {e}")
+    sys.exit(1)
     
 # Example 2: Access specific data from the result
 if "locations" in result and result["locations"]:
@@ -40,7 +65,14 @@ if "locations" in result and result["locations"]:
         lng = location["coordinates"].get("longitude", 0)
         maps_url = f"https://www.google.com/maps?q={lat},{lng}"
 
-# Example 3: Return just the result object for programmatic use
-# When using in your own application, you would typically just return this result
-# and process it according to your needs
-# return result  # Uncomment this in your actual application 
+# Example 3: Print summary for demonstration
+if "locations" in result and result["locations"]:
+    location = result["locations"][0]
+    city = location.get("city", "Unknown")
+    country = location.get("country", "Unknown")
+    confidence = location.get("confidence", "Unknown")
+    print(f"Location detected: {city}, {country} (confidence: {confidence})")
+else:
+    print("No location detected")
+
+print("Analysis complete. Results saved to geospy_result.json")

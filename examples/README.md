@@ -80,25 +80,37 @@ with open("result.json", "w") as f:
 python library_usage.py
 ```
 
-This will analyze an image and save the results to `geospy_result.json` without printing to the console.
+This will analyze an image, save the results to `geospy_result.json`, and print a summary to the console.
 
 ## Examples
 
 ### Basic Library Usage
 
-The `library_usage.py` file shows the simplest way to use GeoSpy:
+The `library_usage.py` file shows how to safely use GeoSpy with proper error handling:
 
 ```python
 from geospyer import GeoSpy
+import os
+import sys
 
-# Initialize
-geospy = GeoSpy()  # Uses GEMINI_API_KEY from environment
+# Initialize with error handling
+try:
+    geospy = GeoSpy()  # Uses GEMINI_API_KEY from environment
+except Exception as e:
+    print(f"Error initializing GeoSpy: {e}")
+    sys.exit(1)
 
-# Analyze an image
-result = geospy.locate(image_path="your_image.jpg")
+# Validate and analyze an image
+image_path = os.path.abspath("your_image.jpg")
+if not os.path.exists(image_path):
+    print("Error: Image file not found")
+    sys.exit(1)
 
-# Print results
-print(result)
+try:
+    result = geospy.locate(image_path=image_path)
+except Exception as e:
+    print(f"Error analyzing image: {e}")
+    sys.exit(1)
 ```
 
 Run the example with:
@@ -106,40 +118,6 @@ Run the example with:
 python library_usage.py
 ```
 
-### Simple API
-
-The `simple_api.py` file shows a minimal Flask API:
-
-```python
-from flask import Flask, request, jsonify
-from geospyer import GeoSpy
-
-app = Flask(__name__)
-geospy = GeoSpy()
-
-@app.route('/analyze', methods=['POST'])
-def analyze():
-    data = request.json
-    image_url = data['image_url']
-    
-    result = geospy.locate(image_path=image_url)
-    return jsonify(result)
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-```
-
-Run it with:
-```bash
-python simple_api.py
-```
-
-Test it with:
-```bash
-curl -X POST http://localhost:5000/analyze \
-  -H "Content-Type: application/json" \
-  -d '{"image_url": "https://example.com/image.jpg"}'
-```
 
 ## Using in Your Projects
 
@@ -154,11 +132,8 @@ To use GeoSpy in your own projects:
    ```python
    from geospyer import GeoSpy
    
-   # Initialize with API key
-   geospy = GeoSpy(api_key="your-api-key-here")
-   
-   # Or use from environment variable
-   # geospy = GeoSpy()
+   # Always use environment variable for security
+   geospy = GeoSpy()  # Uses GEMINI_API_KEY from environment
    ```
 
 3. Analyze images:
